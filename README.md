@@ -1,6 +1,6 @@
 # Maraj Hossain — Personal Portfolio
 
-Source code for my personal portfolio at [marajhossaincse.github.io](https://marajhossaincse.github.io).
+Source code for my personal portfolio at <a href="https://marajhossaincse.github.io" target="_blank">marajhossaincse.github.io</a>.
 
 Built as a static site with HTML, CSS, and vanilla JavaScript. Hosted via GitHub Pages.
 
