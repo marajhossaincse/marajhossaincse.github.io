@@ -105,7 +105,7 @@ img { max-width: 100%; display: block; }
 }
 .nav-links a:hover { color: var(--text); }
 
-.nav-social { display: flex; gap: 18px; flex-shrink: 0; }
+.nav-social { display: flex; gap: 18px; flex-shrink: 0; margin-left: auto; }
 
 .nav-social a {
   color: var(--text-2);
@@ -468,6 +468,8 @@ img { max-width: 100%; display: block; }
   box-shadow:
     0 0 0 5px rgba(41,151,255,0.08),
     0 20px 60px rgba(0,0,0,0.6);
+  transition: transform 0.3s var(--ease);
+  will-change: transform;
 }
 
 .about-text-col .section-title { margin-bottom: 20px; }
@@ -688,4 +690,403 @@ img { max-width: 100%; display: block; }
   .hero-actions { flex-direction: column; align-items: center; }
 
   .about-photo { width: 170px; height: 170px; }
+}
+
+/* ============================================================
+   SCROLL PROGRESS BAR
+   ============================================================ */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), #7f52ff);
+  z-index: 300;
+  transition: width 0.1s linear;
+}
+
+/* ============================================================
+   NAV SCROLLSPY
+   ============================================================ */
+.nav-links a.is-active {
+  color: var(--text);
+  position: relative;
+}
+.nav-links a.is-active::after {
+  content: '';
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 12px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+/* ============================================================
+   SCROLL REVEAL
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  transition-delay: var(--reveal-delay, 0s);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   HERO — load-in + floating tech orbit
+   ============================================================ */
+.hero-in {
+  opacity: 0;
+  transform: translateY(22px);
+  animation: hero-in-move 0.8s var(--ease) forwards;
+}
+.hero-in-1 { animation-delay: 0.05s; }
+.hero-in-2 { animation-delay: 0.16s; }
+.hero-in-3 { animation-delay: 0.30s; }
+.hero-in-4 { animation-delay: 0.44s; }
+
+@keyframes hero-in-move {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-orbit {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.orbit-icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(6px);
+  font-size: 22px;
+  color: var(--text-2);
+  animation: orbit-float 7s ease-in-out infinite;
+  opacity: 0;
+  transform-origin: center;
+}
+
+.orbit-icon .icon-svg { width: 22px; height: 22px; }
+
+.orbit-apple   { top: 18%; left: 12%;  color: var(--text);   animation-delay: 0s;   animation: hero-in-move 0.8s var(--ease) 0.5s forwards, orbit-float 7s ease-in-out 1.3s infinite; }
+.orbit-swift   { top: 62%; left: 8%;   color: #ff6b57;       animation: hero-in-move 0.8s var(--ease) 0.62s forwards, orbit-float 8s ease-in-out 1.42s infinite; }
+.orbit-android { top: 22%; right: 10%; color: #3ddc84;       animation: hero-in-move 0.8s var(--ease) 0.74s forwards, orbit-float 6.5s ease-in-out 1.54s infinite; }
+.orbit-kotlin  { top: 64%; right: 13%; animation: hero-in-move 0.8s var(--ease) 0.86s forwards, orbit-float 7.5s ease-in-out 1.66s infinite; }
+
+@keyframes orbit-float {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(0, -16px); }
+}
+
+/* ============================================================
+   MAGNETIC BUTTONS + RIPPLE
+   ============================================================ */
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  position: relative;
+  z-index: 1;
+}
+
+.magnetic { will-change: transform; }
+
+.btn-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  transform: scale(0);
+  animation: ripple-out 0.6s ease-out forwards;
+  pointer-events: none;
+}
+
+.btn-primary .btn-ripple { background: rgba(255, 255, 255, 0.45); }
+
+@keyframes ripple-out {
+  to { transform: scale(1); opacity: 0; }
+}
+
+/* ============================================================
+   COUNT-UP NUMBER
+   ============================================================ */
+.highlight-num.is-counting { color: var(--accent); }
+
+/* ============================================================
+   PROJECT CARD TILT
+   ============================================================ */
+.tilt-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.tilt-card .card-body,
+.tilt-card .card-image {
+  transform: translateZ(0);
+}
+
+/* ============================================================
+   TECH BADGES (shared: journey + about)
+   ============================================================ */
+.tech-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px 5px 8px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-tag);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-2);
+}
+
+.tech-badge i { font-size: 13px; }
+
+.tech-badge .icon-svg { width: 13px; height: 13px; }
+
+.tech-badge-next {
+  border-style: dashed;
+  color: var(--text-3);
+  background: transparent;
+}
+
+.icon-svg {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* ============================================================
+   SKILL ROW ICONS
+   ============================================================ */
+.skill-icon {
+  color: var(--accent);
+  margin-right: 8px;
+  font-size: 13px;
+  width: 16px;
+  text-align: center;
+}
+
+/* ============================================================
+   CAREER JOURNEY (scroll-drawn path)
+   ============================================================ */
+.journey-intro {
+  max-width: 560px;
+  color: var(--text-2);
+  font-size: 16px;
+  line-height: 1.6;
+  margin-top: -28px;
+  margin-bottom: 48px;
+}
+
+.journey {
+  position: relative;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.journey-line {
+  position: absolute;
+  left: 22px;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  overflow: visible;
+}
+
+.journey-line-bg {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.journey-line-fg {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+  stroke-linecap: round;
+}
+
+.journey-item {
+  display: flex;
+  gap: 24px;
+  padding-bottom: 40px;
+}
+
+.journey-item:last-child { padding-bottom: 0; }
+
+.journey-marker {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  color: var(--text-3);
+  transition:
+    background   0.4s var(--ease),
+    border-color 0.4s var(--ease),
+    color        0.4s var(--ease),
+    transform    0.4s var(--ease),
+    box-shadow   0.4s var(--ease);
+}
+
+.journey-item.is-active .journey-marker {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  transform: scale(1.08);
+  box-shadow: 0 0 0 6px rgba(41, 151, 255, 0.15);
+}
+
+.journey-marker-current {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  animation: marker-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes marker-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(41, 151, 255, 0.4); }
+  50%      { box-shadow: 0 0 0 8px rgba(41, 151, 255, 0); }
+}
+
+.journey-marker-next {
+  border-style: dashed;
+  color: var(--text-3);
+}
+
+.journey-card {
+  padding-top: 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.journey-card-next { opacity: 0.9; }
+
+.journey-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+/* ============================================================
+   BACK TO TOP
+   ============================================================ */
+.back-to-top {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 150;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition:
+    opacity     0.3s var(--ease),
+    visibility  0.3s var(--ease),
+    transform   0.3s var(--ease),
+    background  0.2s var(--ease),
+    box-shadow  0.2s var(--ease);
+}
+
+.back-to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: var(--accent);
+  box-shadow: 0 6px 20px rgba(41, 151, 255, 0.35);
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .hero-in {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .orbit-icon {
+    opacity: 0.5;
+    animation: none;
+  }
+
+  .journey-marker-current { animation: none; }
+
+  .scroll-cue { animation: none; }
+
+  .tilt-card,
+  .magnetic {
+    transform: none !important;
+  }
+}
+
+/* ============================================================
+   JOURNEY — RESPONSIVE
+   ============================================================ */
+@media (max-width: 680px) {
+  .journey-intro { margin-top: -20px; }
+
+  .journey-item { gap: 16px; }
+
+  .journey-marker { width: 38px; height: 38px; font-size: 14px; }
+
+  .journey-line { left: 18px; }
+
+  /* Floating tech badges collide with wrapped hero copy on narrow
+     screens, so they're decorative-only above this breakpoint. */
+  .hero-orbit { display: none; }
 }
