@@ -20,6 +20,21 @@
 
   --nav-bg:       rgba(0, 0, 0, 0.75);
 
+  /* Theme-aware surface tints (white-based washes on the dark theme,
+     overridden to black-based washes in light theme below) */
+  --tint-faint:      rgba(255, 255, 255, 0.02);
+  --tint-soft:       rgba(255, 255, 255, 0.03);
+  --tint:            rgba(255, 255, 255, 0.04);
+  --btn-ghost-bg:       rgba(255, 255, 255, 0.06);
+  --btn-ghost-bg-hover: rgba(255, 255, 255, 0.12);
+  --ripple-color:    rgba(255, 255, 255, 0.35);
+
+  --hero-title-grad-start: #ffffff;
+  --hero-title-grad-end:   #7a7a82;
+
+  --shadow-card-hover: 0 28px 70px rgba(0, 0, 0, 0.55);
+  --shadow-photo:      0 20px 60px rgba(0, 0, 0, 0.6);
+
   --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
           "Helvetica Neue", Arial, sans-serif;
 
@@ -32,6 +47,46 @@
   --container: 1080px;
 
   --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ---------- Light theme overrides --------------------------- */
+:root[data-theme="light"] {
+  --bg:           #ffffff;
+  --bg-alt:       #f5f5f7;
+  --surface:      #ffffff;
+  --surface-2:    #f5f5f7;
+  --border:       rgba(0, 0, 0, 0.08);
+  --border-focus: rgba(0, 113, 227, 0.4);
+
+  --text:         #1d1d1f;
+  --text-2:       #6e6e73;
+  --text-3:       #86868b;
+
+  --accent:       #0071e3;
+  --accent-hover: #0077ed;
+
+  --nav-bg:       rgba(255, 255, 255, 0.75);
+
+  --tint-faint:      rgba(0, 0, 0, 0.025);
+  --tint-soft:       rgba(0, 0, 0, 0.035);
+  --tint:            rgba(0, 0, 0, 0.045);
+  --btn-ghost-bg:       rgba(0, 0, 0, 0.04);
+  --btn-ghost-bg-hover: rgba(0, 0, 0, 0.07);
+  --ripple-color:    rgba(0, 0, 0, 0.12);
+
+  --hero-title-grad-start: #1d1d1f;
+  --hero-title-grad-end:   #6e6e73;
+
+  --shadow-card-hover: 0 20px 45px rgba(0, 0, 0, 0.12);
+  --shadow-photo:      0 16px 40px rgba(0, 0, 0, 0.18);
+}
+
+/* Smooth cross-fade between themes on the surfaces that don't already
+   declare their own transition (see the elements below that do). */
+body, .nav, .section-alt, .footer, .skills-table, .skill-row,
+.tag, .tech-badge, .tl-concurrent, .tl-badge, .card-impact,
+.orbit-icon, .theme-toggle {
+  transition: background-color 0.35s var(--ease), border-color 0.35s var(--ease), color 0.35s var(--ease);
 }
 
 /* ---------- Reset ------------------------------------------ */
@@ -105,7 +160,7 @@ img { max-width: 100%; display: block; }
 }
 .nav-links a:hover { color: var(--text); }
 
-.nav-social { display: flex; gap: 18px; flex-shrink: 0; margin-left: auto; }
+.nav-social { display: flex; align-items: center; gap: 18px; flex-shrink: 0; margin-left: auto; }
 
 .nav-social a {
   color: var(--text-2);
@@ -115,6 +170,43 @@ img { max-width: 100%; display: block; }
   line-height: 1;
 }
 .nav-social a:hover { color: var(--text); }
+
+/* ---------- Theme toggle ------------------------------------ */
+.theme-toggle {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-2);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background-color 0.3s var(--ease), border-color 0.3s var(--ease), color 0.3s var(--ease), transform 0.2s var(--ease);
+}
+.theme-toggle:hover { color: var(--text); border-color: var(--border-focus); }
+.theme-toggle:active { transform: scale(0.9); }
+
+.theme-toggle i {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  transition: opacity 0.3s var(--ease), transform 0.4s var(--ease);
+}
+
+.theme-toggle .fa-sun  { opacity: 0; transform: rotate(-80deg) scale(0.5); }
+.theme-toggle .fa-moon { opacity: 1; transform: rotate(0) scale(1); }
+
+:root[data-theme="light"] .theme-toggle .fa-sun  { opacity: 1; transform: rotate(0) scale(1); }
+:root[data-theme="light"] .theme-toggle .fa-moon { opacity: 0; transform: rotate(80deg) scale(0.5); }
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle i { transition: opacity 0.2s linear; transform: none !important; }
+}
 
 /* ---------- Layout helpers --------------------------------- */
 .container {
@@ -176,12 +268,12 @@ img { max-width: 100%; display: block; }
 }
 
 .btn-ghost {
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--btn-ghost-bg);
   color: var(--text);
   border: 1px solid var(--border);
 }
 .btn-ghost:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--btn-ghost-bg-hover);
   color: var(--text);
   transform: scale(1.025);
 }
@@ -240,7 +332,7 @@ img { max-width: 100%; display: block; }
   letter-spacing: -0.045em;
   line-height: 0.96;
   margin-bottom: 28px;
-  background: linear-gradient(180deg, #ffffff 30%, #7a7a82 100%);
+  background: linear-gradient(180deg, var(--hero-title-grad-start) 30%, var(--hero-title-grad-end) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -350,7 +442,7 @@ img { max-width: 100%; display: block; }
 
 .project-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.55);
+  box-shadow: var(--shadow-card-hover);
   border-color: rgba(41,151,255,0.2);
 }
 
@@ -433,7 +525,7 @@ img { max-width: 100%; display: block; }
 
 .skill-row:last-child { border-bottom: none; }
 
-.skill-row:nth-child(even) { background: rgba(255, 255, 255, 0.02); }
+.skill-row:nth-child(even) { background: var(--tint-faint); }
 
 .skill-category {
   font-size: 13px;
@@ -467,7 +559,7 @@ img { max-width: 100%; display: block; }
   border: 1px solid var(--border);
   box-shadow:
     0 0 0 5px rgba(41,151,255,0.08),
-    0 20px 60px rgba(0,0,0,0.6);
+    var(--shadow-photo);
   transition: transform 0.3s var(--ease);
   will-change: transform;
 }
@@ -582,7 +674,7 @@ img { max-width: 100%; display: block; }
   gap: 10px;
   margin-top: 10px;
   padding: 10px 14px;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--tint-soft);
   border: 1px solid var(--border);
   border-radius: 10px;
   font-size: 13px;
@@ -770,7 +862,7 @@ img { max-width: 100%; display: block; }
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--tint);
   border: 1px solid var(--border);
   backdrop-filter: blur(6px);
   font-size: 22px;
@@ -813,7 +905,7 @@ img { max-width: 100%; display: block; }
 .btn-ripple {
   position: absolute;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.35);
+  background: var(--ripple-color);
   transform: scale(0);
   animation: ripple-out 0.6s ease-out forwards;
   pointer-events: none;

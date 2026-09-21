@@ -5,6 +5,17 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Maraj Hossain — Full-Stack Mobile Engineer</title>
 	<meta name="description" content="Maraj Hossain — Full-stack mobile engineer, iOS-first, 4 years shipping Swift/SwiftUI apps and expanding into Android &amp; Kotlin." />
+	<script>
+		(function () {
+			try {
+				var stored = localStorage.getItem('theme');
+				var theme = stored === 'light' || stored === 'dark'
+					? stored
+					: (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+				document.documentElement.setAttribute('data-theme', theme);
+			} catch (e) {}
+		})();
+	</script>
 	<link rel="stylesheet" href="assets/css/fontawesome-all.min.css" />
 	<link rel="stylesheet" href="assets/css/apple.css" />
 </head>
@@ -38,6 +49,10 @@
 				<li><a href="#about" data-nav>About</a></li>
 			</ul>
 			<div class="nav-social">
+				<button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch to light theme" aria-pressed="false">
+					<i class="fas fa-moon" aria-hidden="true"></i>
+					<i class="fas fa-sun" aria-hidden="true"></i>
+				</button>
 				<a href="https://www.linkedin.com/in/maraj-hossain-207a841b0/" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
 				<a href="https://github.com/marajhossaincse" aria-label="GitHub" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
 			</div>
@@ -54,7 +69,7 @@
 			<span class="orbit-icon orbit-kotlin" data-depth="0.45"><svg class="icon-svg" aria-hidden="true"><use href="#icon-kotlin"></use></svg></span>
 		</div>
 		<div class="hero-content">
-			<p class="eyebrow hero-in hero-in-1">Full-Stack Mobile Engineer · iOS-First · 4 Years Experience</p>
+			<p class="eyebrow hero-in hero-in-1">Full-Stack Mobile Engineer · iOS-First · 4 Years in the Field</p>
 			<h1 class="hero-title hero-in hero-in-2">Maraj<br>Hossain</h1>
 			<p class="hero-sub hero-in hero-in-3">Building high-performance mobile experiences on whatever stack the product needs —<br>backed by deep, hands-on mastery of native iOS engineering.</p>
 			<div class="hero-actions hero-in hero-in-4">

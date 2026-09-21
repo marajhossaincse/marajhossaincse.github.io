@@ -261,4 +261,23 @@
 			window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
 		});
 	}
+
+	/* ---------- Theme toggle ------------------------------------------ */
+	var themeToggle = document.getElementById('themeToggle');
+	if (themeToggle) {
+		var root = document.documentElement;
+
+		var setTheme = function (theme) {
+			root.setAttribute('data-theme', theme);
+			themeToggle.setAttribute('aria-pressed', theme === 'light' ? 'true' : 'false');
+			themeToggle.setAttribute('aria-label', theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme');
+			try { localStorage.setItem('theme', theme); } catch (e) {}
+		};
+
+		setTheme(root.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
+
+		themeToggle.addEventListener('click', function () {
+			setTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+		});
+	}
 })();
