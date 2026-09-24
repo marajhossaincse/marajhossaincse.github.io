@@ -3,380 +3,378 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>Maraj Hossain — Full-Stack Mobile Engineer</title>
-	<meta name="description" content="Maraj Hossain — Full-stack mobile engineer, iOS-first, 4 years shipping Swift/SwiftUI apps and expanding into Android &amp; Kotlin." />
+	<title>Maraj Hossain — Mobile Engineer</title>
+	<meta name="description" content="Maraj Hossain — mobile engineer, iOS-first. Four years shipping Swift and SwiftUI apps, designed from the architecture up, and expanding into Android and Kotlin." />
+	<meta name="theme-color" content="#f6f6f3" media="(prefers-color-scheme: light)" />
+	<meta name="theme-color" content="#0b0c0f" media="(prefers-color-scheme: dark)" />
 	<script>
 		(function () {
+			var root = document.documentElement;
+			root.classList.add('js');
 			try {
 				var stored = localStorage.getItem('theme');
 				var theme = stored === 'light' || stored === 'dark'
 					? stored
-					: (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-				document.documentElement.setAttribute('data-theme', theme);
+					: (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+				root.setAttribute('data-theme', theme);
 			} catch (e) {}
 		})();
 	</script>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" />
 	<link rel="stylesheet" href="assets/css/fontawesome-all.min.css" />
-	<link rel="stylesheet" href="assets/css/apple.css" />
+	<link rel="stylesheet" href="assets/css/site.css" />
 </head>
 <body>
 
 	<!-- Inline icon symbols (Kotlin has no Font Awesome free glyph) -->
 	<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
 		<symbol id="icon-kotlin" viewBox="0 0 24 24">
-			<defs>
-				<linearGradient id="kotlinGrad" x1="0" y1="0" x2="1" y2="1">
-					<stop offset="0" stop-color="#E64A19"/>
-					<stop offset="0.5" stop-color="#AB47BC"/>
-					<stop offset="1" stop-color="#7F52FF"/>
-				</linearGradient>
-			</defs>
-			<path d="M2 2H22L12 12L22 22H2L12 12Z" fill="url(#kotlinGrad)"/>
+			<path d="M2 2H22L12 12L22 22H2L12 12Z" fill="currentColor"/>
 		</symbol>
 	</svg>
 
-	<!-- Scroll progress -->
-	<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+	<a class="skip-link" href="#main">Skip to content</a>
+
+	<!-- Interactive blueprint field + cursor -->
+	<canvas class="field" id="field" aria-hidden="true"></canvas>
+	<div class="cursor" id="cursor" aria-hidden="true">
+		<span class="cursor-dot"></span>
+		<span class="cursor-ring"></span>
+	</div>
 
 	<!-- Navigation -->
-	<nav class="nav" id="nav">
-		<div class="nav-inner">
-			<a href="#hero" class="nav-logo">Maraj Hossain</a>
-			<ul class="nav-links">
-				<li><a href="#journey" data-nav>Journey</a></li>
+	<header class="nav" id="nav">
+		<a href="#top" class="nav-mark" aria-label="Maraj Hossain, back to top">MH</a>
+		<nav aria-label="Primary">
+			<ul class="nav-links" id="navLinks">
 				<li><a href="#work" data-nav>Work</a></li>
-				<li><a href="#skills" data-nav>Skills</a></li>
+				<li><a href="#journey" data-nav>Journey</a></li>
+				<li><a href="#stack" data-nav>Stack</a></li>
 				<li><a href="#about" data-nav>About</a></li>
 			</ul>
-			<div class="nav-social">
-				<button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch to light theme" aria-pressed="false">
-					<i class="fas fa-moon" aria-hidden="true"></i>
-					<i class="fas fa-sun" aria-hidden="true"></i>
-				</button>
-				<a href="https://www.linkedin.com/in/maraj-hossain-207a841b0/" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
-				<a href="https://github.com/marajhossaincse" aria-label="GitHub" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
-			</div>
+			<span class="nav-pill" id="navPill" aria-hidden="true"></span>
+		</nav>
+		<div class="nav-actions">
+			<button type="button" class="icon-btn" id="themeToggle" aria-label="Switch to dark theme" aria-pressed="false">
+				<i class="fas fa-moon" aria-hidden="true"></i>
+				<i class="fas fa-sun" aria-hidden="true"></i>
+			</button>
+			<a href="#contact" class="nav-cta" data-magnetic>Contact</a>
 		</div>
-	</nav>
+	</header>
 
-	<!-- Hero -->
-	<section id="hero" class="hero">
-		<div class="hero-glow"></div>
-		<div class="hero-orbit" aria-hidden="true">
-			<span class="orbit-icon orbit-apple" data-depth="0.35"><i class="fab fa-apple"></i></span>
-			<span class="orbit-icon orbit-swift" data-depth="0.55"><i class="fab fa-swift"></i></span>
-			<span class="orbit-icon orbit-android" data-depth="0.75"><i class="fab fa-android"></i></span>
-			<span class="orbit-icon orbit-kotlin" data-depth="0.45"><svg class="icon-svg" aria-hidden="true"><use href="#icon-kotlin"></use></svg></span>
-		</div>
-		<div class="hero-content">
-			<p class="eyebrow hero-in hero-in-1">Full-Stack Mobile Engineer · iOS-First · 4 Years in the Field</p>
-			<h1 class="hero-title hero-in hero-in-2">Maraj<br>Hossain</h1>
-			<p class="hero-sub hero-in hero-in-3">Building high-performance mobile experiences on whatever stack the product needs —<br>backed by deep, hands-on mastery of native iOS engineering.</p>
-			<div class="hero-actions hero-in hero-in-4">
-				<a href="#journey" class="btn btn-primary magnetic">
-					<span class="btn-label">See My Journey</span>
-				</a>
-				<a href="Maraj_Hossain_Resume.pdf" class="btn btn-ghost magnetic" download>
-					<span class="btn-label">Download Resume</span>
-				</a>
-			</div>
-		</div>
-		<a href="#highlights" class="scroll-cue" aria-label="Scroll down">
-			<i class="fas fa-chevron-down"></i>
-		</a>
-	</section>
+	<main id="main">
 
-	<!-- Social Proof Highlights -->
-	<section id="highlights" class="highlights">
-		<div class="container">
-			<div class="highlights-grid">
-				<div class="highlight-item reveal">
-					<span class="highlight-num" data-count-to="4">0</span>
-					<span class="highlight-label">Years of Experience</span>
-					<p class="highlight-desc">Across two companies in agile, fast-paced environments</p>
-				</div>
-				<div class="highlight-item reveal">
-					<span class="highlight-icon-wrap"><i class="fab fa-apple"></i></span>
-					<span class="highlight-label">Apple Contractor</span>
-					<p class="highlight-desc">Vetted by Apple for technical capability and professionalism</p>
-				</div>
-				<div class="highlight-item reveal">
-					<span class="highlight-icon-wrap"><i class="fas fa-rocket"></i></span>
-					<span class="highlight-label">App Store Shipped</span>
-					<p class="highlight-desc">Taken apps from a blank canvas to successful App Store launch</p>
-				</div>
-				<div class="highlight-item reveal">
-					<span class="highlight-icon-wrap"><i class="fas fa-robot"></i></span>
-					<span class="highlight-label">AI-Driven Engineer</span>
-					<p class="highlight-desc">Using Claude Code to architect, build, and ramp into new stacks fast</p>
+		<!-- Hero -->
+		<section class="hero" id="top">
+			<div class="hero-copy">
+				<p class="kicker mono" data-hero="1"><span class="pulse" aria-hidden="true"></span>Software Engineer at Star Connect</p>
+				<h1 class="hero-title" data-split>Maraj Hossain</h1>
+				<p class="hero-lede" data-hero="2">Mobile engineer who builds apps <em>from the architecture up</em>.</p>
+				<p class="hero-sub" data-hero="3">Four years shipping native iOS with Swift and SwiftUI, including work as an Apple independent contractor. Now expanding into Android and Kotlin.</p>
+				<div class="hero-actions" data-hero="4">
+					<a href="#work" class="btn btn-solid" data-magnetic><span>View work</span><i class="fas fa-arrow-down" aria-hidden="true"></i></a>
+					<a href="Maraj_Hossain_Resume.pdf" class="btn btn-line" data-magnetic download><span>Résumé</span><i class="fas fa-arrow-down" aria-hidden="true"></i></a>
 				</div>
 			</div>
-		</div>
-	</section>
 
-	<!-- Career Journey -->
-	<section id="journey" class="section journey-section">
-		<div class="container">
-			<span class="eyebrow reveal">Career Journey</span>
-			<h2 class="section-title reveal">From classroom to codebase.</h2>
-			<p class="journey-intro reveal">Four years, two companies, one Apple contract, and an eye on what's next — scroll to follow the path.</p>
+			<!-- Exploded app architecture -->
+			<div class="device-wrap" id="device" data-hero="5" aria-hidden="true">
+				<div class="device-stage">
+					<div class="device-stack" id="deviceStack">
 
-			<div class="journey" id="journeyTrack">
-				<svg class="journey-line" viewBox="0 0 4 100" preserveAspectRatio="none" aria-hidden="true">
-					<path class="journey-line-bg" d="M2,0 L2,100" />
-					<path class="journey-line-fg" id="journeyPath" d="M2,0 L2,100" />
-				</svg>
+						<div class="layer layer-data" style="--i:0">
+							<span class="layer-anchor"></span>
+							<div class="layer-body">
+								<div class="node-row">
+									<span class="node">REST</span>
+									<span class="node">WS</span>
+									<span class="node">Cache</span>
+								</div>
+								<div class="node-wire"></div>
+							</div>
+						</div>
 
-				<div class="journey-item reveal" data-journey-item>
-					<div class="journey-marker"><i class="fas fa-graduation-cap"></i></div>
-					<div class="journey-card">
-						<span class="tl-period">Jan 2017 – Dec 2022</span>
-						<h3 class="tl-role">BS in Computer Science &amp; Engineering</h3>
-						<span class="tl-company">North South University</span>
+						<div class="layer layer-domain" style="--i:1">
+							<span class="layer-anchor"></span>
+							<div class="layer-body">
+								<span class="block">FetchExperts</span>
+								<span class="block">StartCall</span>
+								<span class="block">SendMessage</span>
+								<span class="block">Checkout</span>
+							</div>
+						</div>
+
+						<div class="layer layer-vm" style="--i:2">
+							<span class="layer-anchor"></span>
+							<div class="layer-body mono">
+								<span><em>@Observable</em> final class</span>
+								<span>&nbsp;&nbsp;var state: <em>ViewState</em></span>
+								<span>&nbsp;&nbsp;func load() async</span>
+								<span>&nbsp;&nbsp;func call(_ id)</span>
+							</div>
+						</div>
+
+						<div class="layer layer-view" style="--i:3">
+							<span class="layer-anchor"></span>
+							<div class="screen">
+								<div class="screen-status"><span>9:41</span><span class="screen-island"></span><span>●●●</span></div>
+								<div class="screen-title">Experts</div>
+								<div class="screen-search"></div>
+								<div class="screen-card screen-card-live">
+									<span class="avatar"></span>
+									<span class="lines"><i></i><i></i></span>
+									<span class="live">LIVE</span>
+								</div>
+								<div class="screen-card">
+									<span class="avatar"></span>
+									<span class="lines"><i></i><i></i></span>
+								</div>
+								<div class="screen-card">
+									<span class="avatar"></span>
+									<span class="lines"><i></i><i></i></span>
+								</div>
+								<div class="screen-tabs"><i></i><i></i><i></i><i></i></div>
+							</div>
+						</div>
+
 					</div>
 				</div>
-
-				<div class="journey-item reveal" data-journey-item>
-					<div class="journey-marker"><i class="fab fa-swift"></i></div>
-					<div class="journey-card">
-						<span class="tl-period">Jul 2022 – Sep 2022</span>
-						<h3 class="tl-role">Intern iOS Developer</h3>
-						<span class="tl-company">Softzino Technologies Ltd.</span>
-						<div class="journey-badges">
-							<span class="tech-badge"><i class="fab fa-swift"></i> Swift</span>
-						</div>
-					</div>
-				</div>
-
-				<div class="journey-item reveal" data-journey-item>
-					<div class="journey-marker"><i class="fab fa-apple"></i></div>
-					<div class="journey-card">
-						<span class="tl-period">Nov 2022 – Apr 2025</span>
-						<h3 class="tl-role">Associate Software Engineer</h3>
-						<span class="tl-company">Softzino Technologies Ltd.</span>
-						<div class="tl-concurrent">
-							<i class="fab fa-apple"></i>
-							<span>Also: Independent Contractor at Apple &middot; Nov 2022 – Jun 2025</span>
-						</div>
-						<div class="journey-badges">
-							<span class="tech-badge"><i class="fab fa-swift"></i> Swift</span>
-							<span class="tech-badge"><i class="fab fa-apple"></i> iOS</span>
-						</div>
-					</div>
-				</div>
-
-				<div class="journey-item reveal" data-journey-item>
-					<div class="journey-marker journey-marker-current"><i class="fas fa-rocket"></i></div>
-					<div class="journey-card">
-						<span class="tl-period">Aug 2025 – Present</span>
-						<h3 class="tl-role">Software Engineer <span class="tl-badge">Current</span></h3>
-						<span class="tl-company">Star Connect</span>
-						<div class="journey-badges">
-							<span class="tech-badge"><i class="fab fa-swift"></i> SwiftUI</span>
-							<span class="tech-badge"><i class="fab fa-apple"></i> iOS</span>
-						</div>
-					</div>
-				</div>
-
-				<div class="journey-item journey-item-next reveal" data-journey-item>
-					<div class="journey-marker journey-marker-next"><i class="fas fa-compass"></i></div>
-					<div class="journey-card journey-card-next">
-						<span class="tl-period">What's Next</span>
-						<h3 class="tl-role">Going cross-platform</h3>
-						<span class="tl-company">Expanding into Native Android &amp; Flutter</span>
-						<div class="journey-badges">
-							<span class="tech-badge"><svg class="icon-svg" aria-hidden="true"><use href="#icon-kotlin"></use></svg> Kotlin</span>
-							<span class="tech-badge"><i class="fab fa-android"></i> Android</span>
-						</div>
-					</div>
+				<div class="callouts" id="callouts">
+					<div class="callout"><span class="callout-line"></span><span class="callout-text mono"><b>04</b> Data <i>Repositories · API · Socket</i></span></div>
+					<div class="callout"><span class="callout-line"></span><span class="callout-text mono"><b>03</b> Domain <i>Use cases · Models</i></span></div>
+					<div class="callout"><span class="callout-line"></span><span class="callout-text mono"><b>02</b> ViewModel <i>State · async/await</i></span></div>
+					<div class="callout"><span class="callout-line"></span><span class="callout-text mono"><b>01</b> View <i>SwiftUI</i></span></div>
 				</div>
 			</div>
-		</div>
-	</section>
 
-	<!-- Featured Work -->
-	<section id="work" class="section section-alt">
-		<div class="container">
-			<span class="eyebrow reveal">Featured Work</span>
-			<h2 class="section-title reveal">Apps built to last.</h2>
-			<div class="projects-grid">
+			<a href="#facts" class="scroll-hint mono" aria-label="Scroll to content"><span></span>Scroll</a>
+		</section>
 
-				<div class="project-card tilt-card reveal">
-					<div class="card-image">
-						<img src="images/starconnect-banner.png" alt="StarConnect" />
+		<!-- Facts -->
+		<section class="facts" id="facts" aria-label="Highlights">
+			<div class="container facts-grid">
+				<div class="fact" data-reveal>
+					<span class="fact-value"><span data-count-to="4">4</span></span>
+					<span class="fact-label">Years in industry</span>
+					<p>Across two companies in agile, fast-paced teams.</p>
+				</div>
+				<div class="fact" data-reveal>
+					<span class="fact-value"><i class="fab fa-apple" aria-hidden="true"></i></span>
+					<span class="fact-label">Apple contractor</span>
+					<p>Vetted by Apple for technical capability and professionalism.</p>
+				</div>
+				<div class="fact" data-reveal>
+					<span class="fact-value"><i class="fas fa-rocket" aria-hidden="true"></i></span>
+					<span class="fact-label">Shipped to the App Store</span>
+					<p>Taken apps from a blank canvas to launch.</p>
+				</div>
+				<div class="fact" data-reveal>
+					<span class="fact-value"><i class="fas fa-project-diagram" aria-hidden="true"></i></span>
+					<span class="fact-label">Architecture first</span>
+					<p>MVVM and Clean Architecture, owned from day one.</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Work -->
+		<section class="section" id="work">
+			<div class="container">
+				<header class="section-head">
+					<span class="section-index mono" data-reveal>01 — Selected work</span>
+					<h2 class="section-title" data-reveal>Apps built to last.</h2>
+				</header>
+
+				<article class="project" data-reveal data-spotlight>
+					<div class="project-media">
+						<img src="images/starconnect-banner.png" alt="StarConnect app screens" width="1568" height="647" loading="lazy" />
 					</div>
-					<div class="card-body">
-						<span class="card-eyebrow">StarConnect · iOS App</span>
+					<div class="project-body">
+						<span class="project-meta mono">StarConnect · iOS app</span>
 						<h3>Real-time expert consultations</h3>
-						<p>Breaking down barriers to expert advice via live mobile interactions — from scheduling to video call to payment, all within a single seamless experience.</p>
-						<div class="card-impact">
-							<p>Architected the real-time core using <strong>Agora SDK</strong> for video calling and <strong>Pusher</strong> for live WebSocket messaging.</p>
+						<p>Breaking down barriers to expert advice through live mobile interactions — from scheduling to video call to payment, in a single seamless experience.</p>
+						<div class="project-arch">
+							<span class="mono">Architecture</span>
+							<p>Designed the real-time core around the <strong>Agora SDK</strong> for video calling and <strong>Pusher</strong> for live WebSocket messaging, with <strong>PushKit</strong> and <strong>APNs</strong> for incoming calls.</p>
 						</div>
-						<div class="card-tags">
-							<span class="tag tag-sm">SwiftUI</span>
-							<span class="tag tag-sm">Agora SDK</span>
-							<span class="tag tag-sm">PushKit</span>
-							<span class="tag tag-sm">APNs</span>
-							<span class="tag tag-sm">Firebase</span>
-							<span class="tag tag-sm">Pusher</span>
-						</div>
+						<ul class="tags" aria-label="Technologies">
+							<li>SwiftUI</li><li>Agora SDK</li><li>PushKit</li><li>APNs</li><li>Firebase</li><li>Pusher</li>
+						</ul>
 					</div>
-				</div>
+				</article>
 
-				<div class="project-card tilt-card reveal">
-					<div class="card-image">
-						<img src="images/pokedex-banner.png" alt="Pokédex" />
+				<article class="project" data-reveal data-spotlight>
+					<div class="project-media">
+						<img src="images/pokedex-banner.png" alt="Pokédex app screens" width="1408" height="768" loading="lazy" />
 					</div>
-					<div class="card-body">
-						<span class="card-eyebrow">Pokédex · Open Source</span>
-						<h3>Native iOS Pokédex app</h3>
-						<p>A native iOS app for exploring 1,300+ Pokémon via PokéAPI, featuring infinite scroll, detail screens, and zero third-party dependencies.</p>
-						<div class="card-impact">
-							<p>Built with <strong>Clean MVVM</strong> — strict layer separation keeps the domain framework-agnostic and fully covered by <strong>19 unit tests</strong>.</p>
+					<div class="project-body">
+						<span class="project-meta mono">Pokédex · Open source</span>
+						<h3>Native iOS Pokédex</h3>
+						<p>A native iOS app for exploring 1,300+ Pokémon via PokéAPI, with infinite scroll, detail screens and zero third-party dependencies.</p>
+						<div class="project-arch">
+							<span class="mono">Architecture</span>
+							<p>Clean MVVM with strict layer separation — the domain stays framework-agnostic and is covered by <strong>19 unit tests</strong>.</p>
 						</div>
-						<div class="card-tags">
-							<span class="tag tag-sm">SwiftUI</span>
-							<span class="tag tag-sm">Clean MVVM</span>
-							<span class="tag tag-sm">async/await</span>
-							<span class="tag tag-sm">Swift 6</span>
-						</div>
-						<a href="https://github.com/marajhossaincse/Pok-dex" class="btn btn-ghost btn-sm magnetic" target="_blank" rel="noopener">
-							<span class="btn-label"><i class="fab fa-github"></i> View on GitHub</span>
+						<ul class="tags" aria-label="Technologies">
+							<li>SwiftUI</li><li>Clean MVVM</li><li>async/await</li><li>Swift 6</li>
+						</ul>
+						<a href="https://github.com/marajhossaincse/Pok-dex" class="link-arrow" target="_blank" rel="noopener">
+							<i class="fab fa-github" aria-hidden="true"></i> View on GitHub <i class="fas fa-arrow-right" aria-hidden="true"></i>
 						</a>
 					</div>
-				</div>
-
+				</article>
 			</div>
-		</div>
-	</section>
+		</section>
 
-	<!-- Technical Skills -->
-	<section id="skills" class="section">
-		<div class="container">
-			<span class="eyebrow reveal">Technical Skills</span>
-			<h2 class="section-title reveal">Deep in iOS. Ready for any stack.</h2>
-			<div class="skills-table reveal">
-				<div class="skill-row">
-					<span class="skill-category"><i class="fas fa-robot skill-icon"></i> AI-Driven Development</span>
-					<div class="skill-pills">
-						<span class="tag">Claude Code</span>
-						<span class="tag">AI Pair-Programming</span>
-						<span class="tag">AI-Assisted Debugging &amp; Code Review</span>
-						<span class="tag">Rapid Stack Onboarding</span>
-					</div>
-				</div>
-				<div class="skill-row">
-					<span class="skill-category"><i class="fab fa-swift skill-icon"></i> Languages &amp; Frameworks</span>
-					<div class="skill-pills">
-						<span class="tag">Swift</span>
-						<span class="tag">SwiftUI</span>
-						<span class="tag">UIKit</span>
-						<span class="tag">Combine</span>
-					</div>
-				</div>
-				<div class="skill-row">
-					<span class="skill-category"><i class="fas fa-bolt skill-icon"></i> Real-time &amp; Core iOS</span>
-					<div class="skill-pills">
-						<span class="tag">Agora SDK</span>
-						<span class="tag">Pusher (WebSockets)</span>
-						<span class="tag">PushKit</span>
-						<span class="tag">APNs</span>
-						<span class="tag">CoreData</span>
-					</div>
-				</div>
-				<div class="skill-row">
-					<span class="skill-category"><i class="fas fa-layer-group skill-icon"></i> Architecture &amp; Testing</span>
-					<div class="skill-pills">
-						<span class="tag">MVVM</span>
-						<span class="tag">MVC</span>
-						<span class="tag">Clean Architecture</span>
-						<span class="tag">Postman</span>
-						<span class="tag">Hoppscotch</span>
-					</div>
-				</div>
-				<div class="skill-row">
-					<span class="skill-category"><i class="fas fa-cloud skill-icon"></i> DevOps &amp; Cloud</span>
-					<div class="skill-pills">
-						<span class="tag">Firebase FCM</span>
-						<span class="tag">Remote Config</span>
-						<span class="tag">Crashlytics</span>
-						<span class="tag">Xcode Schemes</span>
-						<span class="tag">Git / GitHub</span>
-					</div>
-				</div>
-				<div class="skill-row">
-					<span class="skill-category"><i class="fab fa-figma skill-icon"></i> Design &amp; Workflow</span>
-					<div class="skill-pills">
-						<span class="tag">Figma</span>
-						<span class="tag">HIG Translation</span>
-					</div>
+		<!-- Journey -->
+		<section class="section" id="journey">
+			<div class="container">
+				<header class="section-head">
+					<span class="section-index mono" data-reveal>02 — Journey</span>
+					<h2 class="section-title" data-reveal>From classroom to codebase.</h2>
+				</header>
+
+				<div class="timeline-wrap" id="timeline">
+				<span class="timeline-line" aria-hidden="true"><span id="timelineFill"></span></span>
+				<ol class="timeline">
+
+					<li class="tl" data-reveal>
+						<span class="tl-period mono">Jan 2017 – Dec 2022</span>
+						<div class="tl-body">
+							<h3>BS in Computer Science &amp; Engineering</h3>
+							<span class="tl-org">North South University</span>
+						</div>
+					</li>
+
+					<li class="tl" data-reveal>
+						<span class="tl-period mono">Jul 2022 – Sep 2022</span>
+						<div class="tl-body">
+							<h3>Intern iOS Developer</h3>
+							<span class="tl-org">Softzino Technologies Ltd.</span>
+							<ul class="tags tags-sm"><li>Swift</li></ul>
+						</div>
+					</li>
+
+					<li class="tl" data-reveal>
+						<span class="tl-period mono">Nov 2022 – Apr 2025</span>
+						<div class="tl-body">
+							<h3>Associate Software Engineer</h3>
+							<span class="tl-org">Softzino Technologies Ltd.</span>
+							<p class="tl-note"><i class="fab fa-apple" aria-hidden="true"></i> Also Independent Contractor at Apple · Nov 2022 – Jun 2025</p>
+							<ul class="tags tags-sm"><li>Swift</li><li>iOS</li></ul>
+						</div>
+					</li>
+
+					<li class="tl tl-current" data-reveal>
+						<span class="tl-period mono">Aug 2025 – Present</span>
+						<div class="tl-body">
+							<h3>Software Engineer <span class="badge mono">Current</span></h3>
+							<span class="tl-org">Star Connect</span>
+							<ul class="tags tags-sm"><li>SwiftUI</li><li>iOS</li></ul>
+						</div>
+					</li>
+
+					<li class="tl tl-next" data-reveal>
+						<span class="tl-period mono">Next</span>
+						<div class="tl-body">
+							<h3>Going cross-platform</h3>
+							<span class="tl-org">Expanding into native Android and Flutter</span>
+							<ul class="tags tags-sm">
+								<li><svg class="icon-svg" aria-hidden="true"><use href="#icon-kotlin"></use></svg> Kotlin</li>
+								<li><i class="fab fa-android" aria-hidden="true"></i> Android</li>
+							</ul>
+						</div>
+					</li>
+				</ol>
 				</div>
 			</div>
-			<div class="resume-cta reveal">
-				<a href="Maraj_Hossain_Resume.pdf" class="btn btn-primary btn-large magnetic" download>
-					<span class="btn-label"><i class="fas fa-arrow-down"></i> Download Resume</span>
-				</a>
-			</div>
-		</div>
-	</section>
+		</section>
 
-	<!-- About -->
-	<section id="about" class="section section-alt">
-		<div class="container">
-			<div class="about-grid">
-				<div class="about-photo-col reveal">
-					<img src="images/headshot.jpg" alt="Maraj Hossain" class="about-photo" id="aboutPhoto" />
-				</div>
-				<div class="about-text-col">
-					<span class="eyebrow reveal">About Me</span>
-					<h2 class="section-title reveal">Crafting apps<br>people love to use.</h2>
-					<p class="reveal">I earned my BS in Computer Science and Engineering at North South University (NSU), building a strong foundation in algorithms, systems, and software engineering fundamentals.</p>
-					<p class="reveal">Over the past 4 years — starting with my first iOS role and working in parallel as an Apple Independent Contractor — I've evolved into a developer who owns app architecture from day one. My work in fast-paced startup environments has sharpened my ability to ship real-time, production-grade iOS apps under pressure.</p>
-					<p class="reveal">I'm always staying ahead of iOS trends, writing clean and modular code, and currently exploring Native Android and Flutter to broaden my cross-platform mobile perspective.</p>
-					<div class="about-tech-badges reveal">
-						<span class="tech-badge"><i class="fab fa-swift"></i> Swift</span>
-						<span class="tech-badge"><i class="fab fa-apple"></i> iOS</span>
-						<span class="tech-badge tech-badge-next"><svg class="icon-svg" aria-hidden="true"><use href="#icon-kotlin"></use></svg> Kotlin</span>
-						<span class="tech-badge tech-badge-next"><i class="fab fa-android"></i> Android</span>
+		<!-- Stack -->
+		<section class="section" id="stack">
+			<div class="container">
+				<header class="section-head">
+					<span class="section-index mono" data-reveal>03 — Stack</span>
+					<h2 class="section-title" data-reveal>Deep in iOS. Ready for any stack.</h2>
+				</header>
+
+				<div class="stack">
+					<div class="stack-row" data-reveal>
+						<span class="stack-n mono">01</span>
+						<h3>Languages &amp; frameworks</h3>
+						<ul class="tags"><li>Swift</li><li>SwiftUI</li><li>UIKit</li><li>Combine</li></ul>
 					</div>
-					<div class="about-actions reveal">
-						<a href="https://github.com/marajhossaincse" class="btn btn-ghost btn-sm magnetic" target="_blank" rel="noopener">
-							<span class="btn-label">GitHub</span>
-						</a>
-						<a href="https://www.linkedin.com/in/maraj-hossain-207a841b0/" class="btn btn-ghost btn-sm magnetic" target="_blank" rel="noopener">
-							<span class="btn-label">LinkedIn</span>
-						</a>
+					<div class="stack-row" data-reveal>
+						<span class="stack-n mono">02</span>
+						<h3>Architecture &amp; testing</h3>
+						<ul class="tags"><li>MVVM</li><li>MVC</li><li>Clean Architecture</li><li>Unit testing</li><li>Postman</li><li>Hoppscotch</li></ul>
+					</div>
+					<div class="stack-row" data-reveal>
+						<span class="stack-n mono">03</span>
+						<h3>Real-time &amp; core iOS</h3>
+						<ul class="tags"><li>Agora SDK</li><li>Pusher (WebSockets)</li><li>PushKit</li><li>APNs</li><li>Core Data</li></ul>
+					</div>
+					<div class="stack-row" data-reveal>
+						<span class="stack-n mono">04</span>
+						<h3>DevOps &amp; cloud</h3>
+						<ul class="tags"><li>Firebase FCM</li><li>Remote Config</li><li>Crashlytics</li><li>Xcode schemes</li><li>Git / GitHub</li></ul>
+					</div>
+					<div class="stack-row" data-reveal>
+						<span class="stack-n mono">05</span>
+						<h3>AI-driven development</h3>
+						<ul class="tags"><li>Claude Code</li><li>AI pair programming</li><li>AI-assisted debugging &amp; review</li><li>Rapid stack onboarding</li></ul>
+					</div>
+					<div class="stack-row" data-reveal>
+						<span class="stack-n mono">06</span>
+						<h3>Design &amp; workflow</h3>
+						<ul class="tags"><li>Figma</li><li>HIG translation</li></ul>
 					</div>
 				</div>
 			</div>
-		</div>
-	</section>
+		</section>
 
-	<!-- Footer -->
+		<!-- About -->
+		<section class="section" id="about">
+			<div class="container about">
+				<figure class="about-photo" data-reveal data-tilt>
+					<img src="images/headshot.jpg" alt="Portrait of Maraj Hossain" width="565" height="557" loading="lazy" />
+				</figure>
+				<div class="about-text">
+					<span class="section-index mono" data-reveal>04 — About</span>
+					<h2 class="section-title" data-reveal>Crafting apps people love to use.</h2>
+					<p data-reveal>I earned my BS in Computer Science and Engineering at North South University, building a strong foundation in algorithms, systems and software engineering.</p>
+					<p data-reveal>Over the past four years — starting with my first iOS role and working in parallel as an Apple independent contractor — I've grown into an engineer who owns app architecture from day one. Fast-paced startup teams have sharpened how I ship real-time, production-grade iOS apps under pressure.</p>
+					<p data-reveal>I keep ahead of iOS trends, write clean and modular code, and I'm currently exploring native Android and Flutter to broaden my cross-platform perspective.</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Contact -->
+		<section class="contact" id="contact">
+			<div class="container">
+				<span class="section-index mono" data-reveal>05 — Contact</span>
+				<h2 class="contact-title" data-reveal>Let's build something<br><span>that lasts.</span></h2>
+				<a class="contact-mail" href="mailto:marajhossaincse@gmail.com" data-reveal data-magnetic>marajhossaincse@gmail.com <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+				<div class="contact-links" data-reveal>
+					<a href="https://www.linkedin.com/in/maraj-hossain-207a841b0/" target="_blank" rel="noopener" data-magnetic><i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn</a>
+					<a href="https://github.com/marajhossaincse" target="_blank" rel="noopener" data-magnetic><i class="fab fa-github" aria-hidden="true"></i> GitHub</a>
+					<a href="Maraj_Hossain_Resume.pdf" download data-magnetic><i class="fas fa-arrow-down" aria-hidden="true"></i> Résumé</a>
+				</div>
+			</div>
+		</section>
+	</main>
+
 	<footer class="footer">
-		<div class="container footer-inner">
-			<div class="footer-left">
-				<span class="footer-name">Maraj Hossain</span>
-				<p>Full-Stack Mobile Engineer · Dhaka, Bangladesh</p>
-				<p><a href="mailto:marajhossaincse@gmail.com">marajhossaincse@gmail.com</a></p>
-			</div>
-			<div class="footer-right">
-				<a href="Maraj_Hossain_Resume.pdf" class="btn btn-ghost btn-sm magnetic" download>
-					<span class="btn-label"><i class="fas fa-arrow-down"></i> Resume</span>
-				</a>
-				<a href="https://www.linkedin.com/in/maraj-hossain-207a841b0/" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
-				<a href="https://github.com/marajhossaincse" class="social-link" aria-label="GitHub" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
-			</div>
-		</div>
-		<div class="container footer-bottom">
-			<p>&copy; 2026 Maraj Hossain</p>
+		<div class="container footer-inner mono">
+			<span>&copy; 2026 Maraj Hossain</span>
+			<span>Dhaka, Bangladesh</span>
+			<a href="#top">Back to top <i class="fas fa-arrow-up" aria-hidden="true"></i></a>
 		</div>
 	</footer>
 
-	<button class="back-to-top" id="backToTop" aria-label="Back to top">
-		<i class="fas fa-arrow-up"></i>
-	</button>
-
-	<script src="assets/js/journey.js"></script>
+	<script src="assets/js/vendor/lenis.min.js"></script>
+	<script src="assets/js/site.js"></script>
 </body>
 </html>
